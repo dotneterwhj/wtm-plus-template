@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <Nullable>disable</Nullable>  
+ </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\abner.learning.plus.Model\abner.learning.plus.Model.csproj" />
+  </ItemGroup >
+</Project>
+

@@ -1,0 +1,258 @@
+/* groovylint-disable CompileStatic, DuplicateMapLiteral, DuplicateStringLiteral, GStringExpressionWithiDOCKER_REGISTRYnString, GStringExpressionWithinString, LineLength, NestedBlockDepth, NoDef, VariableTypeRequired */
+pipeline {
+    agent any
+    environment {
+        DOCKER_REGISTRY = '192.168.1.192'
+        WEIXIN_KEY = credentials('weixinkey')
+        PUBLISH_DIR = 'publish'
+        SOLUTION_NAME = 'abner.learning.plus.sln'
+        DOCKER_IMAGE_NAME = 'abner.learning.plus'
+    }
+    options {
+        disableConcurrentBuilds(abortPrevious: true)
+        gitLabConnection('gitlabserver')
+    // gitlabBuilds(builds: ['checkout', 'restore', 'build_publish', 'image_build', 'image_push'])
+    }
+    parameters {
+        string(name: 'REMOTE_HOST_IP', defaultValue: '0.0.0.0', description: 'What is the remote server you wish to deploy? if defalut, stag:192.168.1.194, prod:192.168.1.194')
+        string(name: 'EXPOSED_PORT', defaultValue: '5000', description: 'Which port do you want to publish the website?')
+        string(name: 'INTERNAL_PORT', defaultValue: '80', description: 'Which port do you want to expose in container?')
+        string(name: 'DOCKER_TAG', defaultValue: 'latest', description: 'Which version do you want to tag for docker image?')
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout scm
+                updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+                script {
+                    sh 'git log --oneline -n 1 > gitlog.file'
+                    env.GIT_LOG = readFile('gitlog.file').trim()
+                    env.BUILD_TASKS = env.STAGE_NAME + '√...' + '\n'
+                }
+            }
+        }
+        stage('stag_init') {
+            when {
+                anyOf {
+                    branch 'dev'
+                    branch 'dev*'
+                    branch 'feature*'
+                    branch 'bugfix*'
+                }
+            }
+            steps {
+                script {
+                    env.DOCKER_REGISTRY_NAMESPACE = 'it-stag'
+                    env.DOCKER_IMAGE_TAG = 'latest'
+                    env.REMOTE_HOST_IP = '192.168.1.194'
+                    env.ASPNETCORE_ENVIRONMENT_RUN = '--env ASPNETCORE_ENVIRONMENT=Staging'
+                }
+            }
+        }
+        stage('tag_init') {
+            when {
+                tag 'release-*'
+            }
+            steps {
+                script {
+                    env.DOCKER_REGISTRY_NAMESPACE = 'it'
+                    env.DOCKER_IMAGE_TAG = TAG_NAME
+                    env.REMOTE_HOST_IP = '192.168.1.194'
+                    env.ASPNETCORE_ENVIRONMENT_RUN = ''
+                }
+            }
+        }
+        stage('prod_init') {
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'main'
+                }
+            }
+            steps {
+                script {
+                    env.DOCKER_REGISTRY_NAMESPACE = 'it'
+                    env.DOCKER_IMAGE_TAG = env.GIT_COMMIT
+                    env.REMOTE_HOST_IP = '192.168.1.194'
+                    env.ASPNETCORE_ENVIRONMENT_RUN = ''
+                }
+            }
+        }
+        stage('printenv') {
+            steps {
+                sh 'printenv'
+            }
+        }
+        stage('restore') {
+            when {
+                not {
+                    anyOf {
+                        branch 'master'
+                        branch 'main'
+                    }
+                }
+            }
+            steps {
+                sh "dotnet restore ${env.SOLUTION_NAME}"
+                updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+                script {
+                    env.BUILD_TASKS += env.STAGE_NAME + '√...' + '\n'
+                }
+            }
+        }
+        stage('build_publish') {
+            when {
+                not {
+                    anyOf {
+                        branch 'master'
+                        branch 'main'
+                    }
+                }
+            }
+            steps {
+                sh "dotnet build ${env.SOLUTION_NAME} --configuration=Release"
+                sh "dotnet publish ${env.SOLUTION_NAME} --configuration Release --no-build --output ${env.PUBLISH_DIR}/"
+                sh "cp .dockerignore  ${env.PUBLISH_DIR}/"
+                updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+                script {
+                    env.BUILD_TASKS += env.STAGE_NAME + '√...' + '\n'
+                }
+            }
+        }
+        stage('version_control') {
+            when {
+                expression { params.DOCKER_TAG != 'latest' }
+            }
+            steps {
+                script {
+                    env.DOCKER_IMAGE_TAG = params.DOCKER_TAG
+                }
+            }
+        }
+        stage('remote_host') {
+            when {
+                expression { params.REMOTE_HOST_IP != '0.0.0.0' }
+            }
+            steps {
+                script {
+                    env.REMOTE_HOST_IP = params.REMOTE_HOST_IP
+                }
+            }
+        }
+        stage('image_build') {
+            when {
+                not {
+                    anyOf {
+                        branch 'master'
+                        branch 'main'
+                    }
+                }
+            }
+            steps {
+                dir("${env.WORKSPACE}/${env.PUBLISH_DIR}") {
+                    sh "docker build -t ${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} ."
+                }
+                updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+                script {
+                    env.BUILD_TASKS += env.STAGE_NAME + '√...' + '\n'
+                }
+            }
+        }
+        stage('image_push') {
+            when {
+                not {
+                    anyOf {
+                        branch 'master'
+                        branch 'main'
+                    }
+                }
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'harbor-registry', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh "docker login -u $DOCKER_USER -p $DOCKER_PASS http://${env.DOCKER_REGISTRY}"
+                }
+                sh "docker tag ${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} ${env.DOCKER_REGISTRY}/${env.DOCKER_REGISTRY_NAMESPACE}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
+                retry(2) { sh "docker push ${env.DOCKER_REGISTRY}/${env.DOCKER_REGISTRY_NAMESPACE}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}" }
+                sh 'docker image prune -f'
+                updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+                script {
+                    env.BUILD_TASKS += env.STAGE_NAME + '√...' + '\n'
+                }
+            }
+        }
+        stage('deploy') {
+            when {
+                not {
+                    anyOf {
+                        branch 'master'
+                        branch 'main'
+                    }
+                }
+            }
+            steps {
+                script {
+                    def remote = [:]
+                    remote.name = "server-${env.REMOTE_HOST_IP}"
+                    remote.host = "${env.REMOTE_HOST_IP}"
+                    remote.port = 22
+                    remote.allowAnyHosts = true
+
+                    withCredentials([usernamePassword(credentialsId: "${env.REMOTE_HOST_IP}", passwordVariable: 'HOST_PASS', usernameVariable: 'HOST_USER')]) {
+                        remote.user = "${HOST_USER}"
+                        remote.password = "${HOST_PASS}"
+                    }
+
+                    withCredentials([usernamePassword(credentialsId: 'harbor-registry', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sshCommand remote: remote, command: "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} http://${env.DOCKER_REGISTRY}"
+                    }
+
+                    sshCommand remote: remote, command: "docker pull ${env.DOCKER_REGISTRY}/${env.DOCKER_REGISTRY_NAMESPACE}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
+                    sshCommand remote: remote, command: "docker ps | grep ${env.DOCKER_IMAGE_NAME} | cut -d ' ' -f 1 | xargs docker stop", failOnError: false
+                    sshCommand remote: remote, command: "docker ps -a | grep ${env.DOCKER_IMAGE_NAME} | cut -d ' ' -f 1 | xargs docker rm -f", failOnError: false
+                    sshCommand remote: remote, command: 'docker image prune -f'
+                    sshCommand remote: remote, command: "docker run \
+                        -dp ${params.EXPOSED_PORT}:${params.INTERNAL_PORT} \
+                        --name ${env.DOCKER_IMAGE_NAME} \
+                        --restart unless-stopped \
+                        --env Nacos:Ip=${env.REMOTE_HOST_IP}\
+                        --env Nacos:Port=${params.EXPOSED_PORT}\
+                        ${env.ASPNETCORE_ENVIRONMENT_RUN} \
+                        ${env.DOCKER_REGISTRY}/${env.DOCKER_REGISTRY_NAMESPACE}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
+                }
+                updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+                script {
+                    env.BUILD_TASKS += env.STAGE_NAME + '√...' + '\n'
+                }
+                cleanWs deleteDirs: true
+            }
+        }
+    }
+    post {
+        failure {
+            echo 'pipeline failure'
+            updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'failed')
+        }
+        always {
+            script {
+                def url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${env.WEIXIN_KEY}"
+                def payload = [
+                    msgtype: 'markdown',
+                    markdown: [
+                        content: "**构建结果**：${currentBuild.result}  \n**任务名称**：${env.JOB_NAME}  \n**提交说明**：${env.GIT_LOG}  \n**构建地址**：<${env.BUILD_URL}>  \n**构建过程**：${env.BUILD_TASKS}"
+                    ]
+                ]
+                def response = httpRequest(
+                    acceptType: 'APPLICATION_JSON',
+                    contentType: 'APPLICATION_JSON',
+                    httpMode: 'POST',
+                    requestBody: groovy.json.JsonOutput.toJson(payload),
+                    url: url
+                )
+                if (response.status != 200) {
+                    error "Failed to send notification: ${response.status} - ${response.content}"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abner.learning.plus", "src\abner.learning.plus\abner.learning.plus.csproj", "{6A5F4E69-CC8C-42D3-9DB2-BBD529F2056A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abner.learning.plus.Model", "src\abner.learning.plus.Model\abner.learning.plus.Model.csproj", "{3C228A8C-4323-4C5C-AF5B-E49A9B359ED3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abner.learning.plus.DataAccess", "src\abner.learning.plus.DataAccess\abner.learning.plus.DataAccess.csproj", "{63B86B6B-3223-4020-A330-E06DF4602B87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abner.learning.plus.ViewModel", "src\abner.learning.plus.ViewModel\abner.learning.plus.ViewModel.csproj", "{B560D082-3FA3-4895-AC00-68C7542131FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abner.learning.plus.Test", "src\abner.learning.plus.Test\abner.learning.plus.Test.csproj", "{D7DB1B62-D8F0-44DB-A488-9B23FE39738E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-item", "solution-item", "{7194E0B2-A2A7-40AA-A6B9-5D855CE11C79}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Jenkinsfile = Jenkinsfile
+		NuGet.config = NuGet.config
+		openssl.cnf = openssl.cnf
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A5F4E69-CC8C-42D3-9DB2-BBD529F2056A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5F4E69-CC8C-42D3-9DB2-BBD529F2056A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5F4E69-CC8C-42D3-9DB2-BBD529F2056A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5F4E69-CC8C-42D3-9DB2-BBD529F2056A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C228A8C-4323-4C5C-AF5B-E49A9B359ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C228A8C-4323-4C5C-AF5B-E49A9B359ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C228A8C-4323-4C5C-AF5B-E49A9B359ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C228A8C-4323-4C5C-AF5B-E49A9B359ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B86B6B-3223-4020-A330-E06DF4602B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B86B6B-3223-4020-A330-E06DF4602B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B86B6B-3223-4020-A330-E06DF4602B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B86B6B-3223-4020-A330-E06DF4602B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B560D082-3FA3-4895-AC00-68C7542131FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B560D082-3FA3-4895-AC00-68C7542131FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B560D082-3FA3-4895-AC00-68C7542131FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B560D082-3FA3-4895-AC00-68C7542131FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7DB1B62-D8F0-44DB-A488-9B23FE39738E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7DB1B62-D8F0-44DB-A488-9B23FE39738E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7DB1B62-D8F0-44DB-A488-9B23FE39738E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7DB1B62-D8F0-44DB-A488-9B23FE39738E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F219808-E6E8-4C1D-B846-41F2F7CF20FA}
+	EndGlobalSection
+EndGlobal

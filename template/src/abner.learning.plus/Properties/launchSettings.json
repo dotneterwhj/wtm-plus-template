@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "abner.learning.plus": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
+      },
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:28645/"
+    }
+  }
+}
