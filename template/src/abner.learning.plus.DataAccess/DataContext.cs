@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Core.Attributes;
-using abner.learning.plus.Model;
+using Abner.Learning.Plus.Model;
 using System.Collections.Generic;
 using WalkingTec.Mvvm.Core.Extensions;
 using WalkingTec.Mvvm.Core.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace abner.learning.plus.DataAccess
+namespace Abner.Learning.Plus.DataAccess
 {
     public partial class DataContext : FrameworkContext
     {

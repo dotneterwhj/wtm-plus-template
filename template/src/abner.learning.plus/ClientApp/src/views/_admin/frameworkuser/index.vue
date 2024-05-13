@@ -56,7 +56,7 @@
 </template>
 
 
-<script setup lang="ts" name="message.autotrans._Page_AdminFrameworkUserIndex;true;abner.learning.plus._Admin.Controllers;FrameworkUser">
+<script setup lang="ts" name="message.autotrans._Page_AdminFrameworkUserIndex;true;Abner.Learning.Plus._Admin.Controllers;FrameworkUser">
 import {  ElMessageBox, ElMessage,ElLoading } from 'element-plus';
 import { defineAsyncComponent,reactive, ref, getCurrentInstance, onMounted, nextTick } from 'vue';
 import { frameworkuserApi } from '/@/api/_admin/frameworkuser';

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace abner.learning.plus.Model
+namespace Abner.Learning.Plus.Model
 {
 
     public class RefDicNameAttribute : Attribute

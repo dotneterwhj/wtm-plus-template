@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "abner.learning.plus.Test": {
+    "Abner.Learning.Plus.Test": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

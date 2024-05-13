@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WalkingTec.Mvvm.Core;
 using System.Text.Json.Serialization;
-using abner.learning.plus.Model;
+using Abner.Learning.Plus.Model;
 
 namespace WalkingTec.Mvvm.Core
 {

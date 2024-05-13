@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "abner.learning.plus": {
+    "Abner.Learning.Plus": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",

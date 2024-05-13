@@ -17,7 +17,7 @@ using WalkingTec.Mvvm.Mvc;
 using System.Text.Json.Serialization;
 using System;
 
-namespace abner.learning.plus
+namespace Abner.Learning.Plus
 {
     public class Startup
     {

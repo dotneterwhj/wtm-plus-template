@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Core.Extensions;
 using WalkingTec.Mvvm.Mvc;
-using abner.learning.plus.Model;
+using Abner.Learning.Plus.Model;
 
 
-namespace abner.learning.plus._Admin.Controllers
+namespace Abner.Learning.Plus._Admin.Controllers
 {
     [AuthorizeJwtWithCookie]
     public partial class FrameworkUserController : BaseApiController
@@ -17,7 +17,7 @@ namespace abner.learning.plus._Admin.Controllers
                                                         
         [ActionDescription("Sys.Search")]
         [HttpPost("[action]")]
-        public IActionResult SearchFrameworkUser(abner.learning.plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserSearcher searcher)
+        public IActionResult SearchFrameworkUser(Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserSearcher searcher)
         {
             if (ConfigInfo.HasMainHost && Wtm.LoginUserInfo?.CurrentTenant == null)
             {
@@ -25,7 +25,7 @@ namespace abner.learning.plus._Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                var vm = Wtm.CreateVM<abner.learning.plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserListVM>();
+                var vm = Wtm.CreateVM<Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserListVM>();
                 vm.Searcher = searcher;
                 return Content(vm.GetJson());
             }
@@ -37,14 +37,14 @@ namespace abner.learning.plus._Admin.Controllers
 
         [ActionDescription("Sys.Export")]
         [HttpPost("[action]")]
-        public IActionResult FrameworkUserExportExcel(abner.learning.plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserSearcher searcher)
+        public IActionResult FrameworkUserExportExcel(Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserSearcher searcher)
         {
             if (ConfigInfo.HasMainHost && Wtm.LoginUserInfo?.CurrentTenant == null)
             {
                 ModelState.AddModelError(" mh", Localizer["_Admin.HasMainHost"]);
                 return BadRequest(ModelState.GetErrorJson());
             }
-            var vm = Wtm.CreateVM<abner.learning.plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserListVM>();
+            var vm = Wtm.CreateVM<Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserListVM>();
             vm.Searcher = searcher;
             vm.SearcherMode = ListVMSearchModeEnum.Export;
             return vm.GetExportData();
@@ -59,7 +59,7 @@ namespace abner.learning.plus._Admin.Controllers
                 ModelState.AddModelError(" mh", Localizer["_Admin.HasMainHost"]);
                 return BadRequest(ModelState.GetErrorJson());
             }
-            var vm = Wtm.CreateVM<abner.learning.plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserListVM>();
+            var vm = Wtm.CreateVM<Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs.FrameworkUserListVM>();
             if (ids != null && ids.Count() > 0)
             {
                 vm.Ids = new List<string>(ids);

@@ -7,10 +7,10 @@ using WalkingTec.Mvvm.Mvc;
 using WalkingTec.Mvvm.Core.Extensions;
 using System.Linq;
 using System.Collections.Generic;
-using abner.learning.plus.ViewModel._Admin.FrameworkUserVMs;
-using abner.learning.plus.Model;
+using Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs;
+using Abner.Learning.Plus.Model;
 
-namespace abner.learning.plus._Admin.Controllers
+namespace Abner.Learning.Plus._Admin.Controllers
 {
     [AuthorizeJwtWithCookie]
     [ActionDescription("_Model.FrameworkUser")]

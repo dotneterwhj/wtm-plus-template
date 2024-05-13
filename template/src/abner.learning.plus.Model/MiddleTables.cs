@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Core.Attributes;
 
-namespace abner.learning.plus.Model
+namespace Abner.Learning.Plus.Model
 {
     public class _PlaceHolder_
     {

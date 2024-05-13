@@ -17,7 +17,7 @@ using WalkingTec.Mvvm.Mvc;
 using System.Reflection;
 using WalkingTec.Mvvm.Core.Support.Json;
 
-namespace abner.learning.plus.Test
+namespace Abner.Learning.Plus.Test
 {
     public class MockController
     {

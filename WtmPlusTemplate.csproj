@@ -3,13 +3,13 @@
   <PropertyGroup>
     <PackageType>Template</PackageType>
     <PackageVersion>1.0.0</PackageVersion>
-    <PackageId>Abner.Wtm.Plus</PackageId>
-    <Title>Abner.Wtm.Plus</Title>
+    <PackageId>Abner.Wtm.Plus.Vue3</PackageId>
+    <Title>Abner.Wtm.Plus.Vue3</Title>
     <Authors>abner</Authors>
     <Description>Templates to use when creating an application for Wtm.</Description>
     <PackageTags>dotnet-new;templates;contoso</PackageTags>
-    <PackageProjectUrl>https://gitea.nailao.space:20443/opensource/wtm-plus-template</PackageProjectUrl>
-		<RepositoryUrl>https://gitea.nailao.space:20443/opensource/wtm-plus-template</RepositoryUrl>
+    <PackageProjectUrl>https://gitea.nailao.space:20443/opensource/wtm-plus-vue3-template</PackageProjectUrl>
+    <RepositoryUrl>https://gitea.nailao.space:20443/opensource/wtm-plus-vue3-template</RepositoryUrl>
     <TargetFramework>net6.0</TargetFramework>
 
     <IncludeContentInPack>true</IncludeContentInPack>

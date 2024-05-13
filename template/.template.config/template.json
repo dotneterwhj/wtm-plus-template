@@ -4,14 +4,14 @@
     "classifications": [
         "Web/WebAPI"
     ],
-    "identity": "Abner.Wtm.Plus",
-    "name": "Abner.Wtm.Plus",
-    "shortName": "abnerwtm",
+    "identity": "Abner.Wtm.Plus.Vue3",
+    "name": "Abner.Wtm.Plus.Vue3",
+    "shortName": "wtmvue3",
     "tags": {
         "language": "C#",
         "type": "project"
     },
-    "sourceName": "abner.learning.plus",
+    "sourceName": "Abner.Learning.Plus",
     "preferNameDirectory": true,
     "symbols": {
         "apiPort": {

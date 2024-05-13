@@ -5,8 +5,8 @@ pipeline {
         DOCKER_REGISTRY = '192.168.1.192'
         WEIXIN_KEY = credentials('weixinkey')
         PUBLISH_DIR = 'publish'
-        SOLUTION_NAME = 'abner.learning.plus.sln'
-        DOCKER_IMAGE_NAME = 'abner.learning.plus'
+        SOLUTION_NAME = 'Abner.Learning.Plus.sln'
+        DOCKER_IMAGE_NAME = 'Abner.Learning.Plus'
     }
     options {
         disableConcurrentBuilds(abortPrevious: true)

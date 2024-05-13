@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Core.Extensions;
-using abner.learning.plus.Model;
+using Abner.Learning.Plus.Model;
 
-namespace abner.learning.plus.ViewModel._Admin.FrameworkUserVMs
+namespace Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs
 {
     public partial class FrameworkUserTemplateVM : BaseTemplateVM
     {

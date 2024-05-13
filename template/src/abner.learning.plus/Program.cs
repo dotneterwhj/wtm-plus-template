@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WalkingTec.Mvvm.Core;
 
-namespace abner.learning.plus
+namespace Abner.Learning.Plus
 {
     public class Program
     {

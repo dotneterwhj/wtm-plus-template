@@ -33,9 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
-   <ProjectReference Include="..\abner.learning.plus.Model\abner.learning.plus.Model.csproj" />
-    <ProjectReference Include="..\abner.learning.plus.DataAccess\abner.learning.plus.DataAccess.csproj" />
-    <ProjectReference Include="..\abner.learning.plus.ViewModel\abner.learning.plus.ViewModel.csproj" />
+   <ProjectReference Include="..\Abner.Learning.Plus.Model\Abner.Learning.Plus.Model.csproj" />
+    <ProjectReference Include="..\Abner.Learning.Plus.DataAccess\Abner.Learning.Plus.DataAccess.csproj" />
+    <ProjectReference Include="..\Abner.Learning.Plus.ViewModel\Abner.Learning.Plus.ViewModel.csproj" />
  </ItemGroup >
 </Project>
 

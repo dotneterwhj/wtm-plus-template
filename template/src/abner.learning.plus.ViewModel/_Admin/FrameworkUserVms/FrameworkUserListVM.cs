@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Core.Extensions;
-using abner.learning.plus.Model;
+using Abner.Learning.Plus.Model;
 
-namespace abner.learning.plus.ViewModel._Admin.FrameworkUserVMs
+namespace Abner.Learning.Plus.ViewModel._Admin.FrameworkUserVMs
 {
     public partial class FrameworkUserListVM : BasePagedListVM<FrameworkUser_View, FrameworkUserSearcher>
     {
